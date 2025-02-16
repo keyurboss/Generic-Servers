@@ -35,6 +35,7 @@ func init() {
 		validator: validator.New(),
 	}
 	Validator.validator.RegisterValidation("port", validatePort)
+	Validator.validator.RegisterValidation("enum", validateEnum)
 }
 
 func (v XValidator) Validate(data interface{}) []ErrorResponse {

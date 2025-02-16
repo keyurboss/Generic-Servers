@@ -39,7 +39,9 @@ var (
 	ShouldBeRunning = false
 )
 
-func (m *tunnelService) Execute(args []string, r chan svc.ChangeRequest, status chan<- svc.Status) (bool, uint32) {
+// Execute(args []string, r <-chan ChangeRequest, s chan<- Status) (svcSpecificEC bool, exitCode uint32)
+
+func (m *tunnelService) Execute(args []string, r <-chan svc.ChangeRequest, status chan<- svc.Status) (bool, uint32) {
 
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	tick := time.Tick(30 * time.Second)
@@ -49,17 +51,17 @@ func (m *tunnelService) Execute(args []string, r chan svc.ChangeRequest, status 
 	status <- svc.Status{State: svc.Running, Accepts: cmdsAccepted}
 	StartChisel()
 
-	if IsDebug() {
-		log.Print("In Debug Mode")
-		go func() {
-			time.Sleep(15 * time.Second)
-			r <- svc.ChangeRequest{Cmd: svc.Pause, CurrentStatus: svc.Status{State: svc.Paused}}
-			time.Sleep(15 * time.Second)
-			r <- svc.ChangeRequest{Cmd: svc.Continue, CurrentStatus: svc.Status{State: svc.Running}}
-			time.Sleep(15 * time.Second)
-			r <- svc.ChangeRequest{Cmd: svc.Stop, CurrentStatus: svc.Status{State: svc.Stopped}}
-		}()
-	}
+	// if IsDebug() {
+	// 	log.Print("In Debug Mode")
+	// 	go func() {
+	// 		time.Sleep(15 * time.Second)
+	// 		r <- svc.ChangeRequest{Cmd: svc.Pause, CurrentStatus: svc.Status{State: svc.Paused}}
+	// 		time.Sleep(15 * time.Second)
+	// 		r <- svc.ChangeRequest{Cmd: svc.Continue, CurrentStatus: svc.Status{State: svc.Running}}
+	// 		time.Sleep(15 * time.Second)
+	// 		r <- svc.ChangeRequest{Cmd: svc.Stop, CurrentStatus: svc.Status{State: svc.Stopped}}
+	// 	}()
+	// }
 loop:
 	for {
 		select {
@@ -93,13 +95,14 @@ loop:
 }
 
 func runService(name string, isDebug bool) {
+	structS := &tunnelService{}
 	if isDebug {
-		err := debug.Run(name, &tunnelService{})
+		err := debug.Run(name, structS)
 		if err != nil {
 			log.Fatalln("Error running service in debug mode.")
 		}
 	} else {
-		err := svc.Run(name, &tunnelService{})
+		err := svc.Run(name, structS)
 		if err != nil {
 			log.Fatalln("Error running service in Service Control mode.")
 		}

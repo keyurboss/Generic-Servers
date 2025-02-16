@@ -31,7 +31,7 @@ var (
 	ThisConfig      *Config
 )
 
-func (m *tunnelService) Execute(args []string, r chan svc.ChangeRequest, status chan<- svc.Status) (bool, uint32) {
+func (m *tunnelService) Execute(args []string, r <-chan svc.ChangeRequest, status chan<- svc.Status) (bool, uint32) {
 
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	tick := time.Tick(30 * time.Second)
@@ -39,17 +39,17 @@ func (m *tunnelService) Execute(args []string, r chan svc.ChangeRequest, status 
 	status <- svc.Status{State: svc.StartPending}
 
 	status <- svc.Status{State: svc.Running, Accepts: cmdsAccepted}
-	if IsDebug() {
-		log.Print("In Debug Mode")
-		go func() {
-			time.Sleep(15 * time.Second)
-			r <- svc.ChangeRequest{Cmd: svc.Pause, CurrentStatus: svc.Status{State: svc.Paused}}
-			time.Sleep(15 * time.Second)
-			r <- svc.ChangeRequest{Cmd: svc.Continue, CurrentStatus: svc.Status{State: svc.Running}}
-			time.Sleep(15 * time.Second)
-			r <- svc.ChangeRequest{Cmd: svc.Stop, CurrentStatus: svc.Status{State: svc.Stopped}}
-		}()
-	}
+	// if IsDebug() {
+	// 	log.Print("In Debug Mode")
+	// 	go func() {
+	// 		time.Sleep(15 * time.Second)
+	// 		r <- svc.ChangeRequest{Cmd: svc.Pause, CurrentStatus: svc.Status{State: svc.Paused}}
+	// 		time.Sleep(15 * time.Second)
+	// 		r <- svc.ChangeRequest{Cmd: svc.Continue, CurrentStatus: svc.Status{State: svc.Running}}
+	// 		time.Sleep(15 * time.Second)
+	// 		r <- svc.ChangeRequest{Cmd: svc.Stop, CurrentStatus: svc.Status{State: svc.Stopped}}
+	// 	}()
+	// }
 	StartService()
 loop:
 	for {
