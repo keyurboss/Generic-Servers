@@ -29,14 +29,14 @@ func (s *firebaseFirestoreService) setPrivateData(collection string, doc string,
 	return err
 }
 func (s *firebaseFirestoreService) GetShortUrl(doc string) (map[string]interface{}, error) {
-	return s.getPublicData("urls", doc)
+	return s.GetPublicData("urls", doc)
 	// da, err := s.db.Collection(colletion).Doc(doc).Get(FirebaseCtx)
 	// if err != nil {
 	// 	return nil, err
 	// }
 	// return da.Data(), err
 }
-func (s *firebaseFirestoreService) getPublicData(colletion string, doc string) (map[string]interface{}, error) {
+func (s *firebaseFirestoreService) GetPublicData(colletion string, doc string) (map[string]interface{}, error) {
 	da, err := s.db.Collection(colletion).Doc(doc).Get(FirebaseCtx)
 	if err != nil {
 		println(err)
