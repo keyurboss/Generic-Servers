@@ -67,12 +67,14 @@ var lenOfCharArray = len(CharArray) - 1
 
 func (u *uniqueId) GetUniqueId() string {
 	totalLen := len(u.CuurentId)
-	for i := totalLen - u.ChangeNoOfDigits - 1; i < totalLen; i++ {
+	for i := totalLen - u.ChangeNoOfDigits; i < totalLen; i++ {
 		if index, ok := IndexedChar[u.IdInByte[i]]; ok {
 			index += u.IncreseDigitBy
 			if index > lenOfCharArray {
 				index = index - lenOfCharArray - 1
 			}
+			println(index)
+			println(CharArray[index])
 			u.IdInByte[i] = CharArray[index]
 		}
 	}

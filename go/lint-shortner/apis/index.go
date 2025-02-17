@@ -19,13 +19,13 @@ func init() {
 		}
 	}
 	if c, ok := currentIdConfig["changeNoOfDigits"]; ok {
-		if c, ok := c.(int); ok {
-			utility.UniqueIdConst.ChangeNoOfDigits = c
+		if c, ok := c.(int64); ok {
+			utility.UniqueIdConst.ChangeNoOfDigits = int(c)
 		}
 	}
 	if c, ok := currentIdConfig["increseDigitBy"]; ok {
-		if c, ok := c.(int); ok {
-			utility.UniqueIdConst.IncreseDigitBy = c
+		if c, ok := c.(int64); ok {
+			utility.UniqueIdConst.IncreseDigitBy = int(c)
 		}
 	}
 	serverConfig, err := firebaseDb.GetPublicData("server_config", "server_url")
@@ -35,6 +35,16 @@ func init() {
 	if url, ok := serverConfig["server_url"]; ok {
 		if url, ok := url.(string); ok {
 			utility.ServerUrl = url
+		}
+	}
+	if user, ok := serverConfig["uname"]; ok {
+		if user, ok := user.(string); ok {
+			utility.UName = user
+		}
+	}
+	if pass, ok := serverConfig["password"]; ok {
+		if pass, ok := pass.(string); ok {
+			utility.Password = pass
 		}
 	}
 	// println("Firebase Database Service Initialized")

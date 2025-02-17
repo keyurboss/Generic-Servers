@@ -30,10 +30,13 @@ func BulkShortning(c *fiber.Ctx) error {
 			continue
 		}
 		id := utility.UniqueIdConst.GetUniqueId()
-		resp[id] = utility.ServerUrl + id
+		resp[url] = utility.ServerUrl + id
 		firebaseDb.SetPublicData(id, map[string]interface{}{"url": url, "created_at": time.Now().Unix()})
 	}
-	return c.JSON(resp)
+	return c.JSON(fiber.Map{
+		"success": 1,
+		"data":    resp,
+	})
 }
 
 func SignleShortning(c *fiber.Ctx) error {
@@ -42,7 +45,7 @@ func SignleShortning(c *fiber.Ctx) error {
 	if err := utility.ValidateReqInput(body); err != nil {
 		return err
 	}
-	resp := make(map[string]string)
+	// resp := make(map[string]string)
 
 	// for _, url := range body.Urls {
 	if !utility.ValidateUrl(body.Urls) {
@@ -53,8 +56,12 @@ func SignleShortning(c *fiber.Ctx) error {
 		})
 	}
 	id := utility.UniqueIdConst.GetUniqueId()
-	resp[id] = utility.ServerUrl + id
+	newUrl := utility.ServerUrl + id
 	firebaseDb.SetPublicData(id, map[string]interface{}{"url": body.Urls, "created_at": time.Now().Unix()})
 	// }
-	return c.JSON(resp)
+	return c.JSON(fiber.Map{
+		"success": 1,
+		"data":    newUrl,
+	})
+	// return c.JSON(resp)
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/keyurboss/Generic-Servers/go/lint-shortner/env"
 	"github.com/keyurboss/Generic-Servers/go/lint-shortner/firebase"
 	"github.com/keyurboss/Generic-Servers/go/lint-shortner/interfaces"
+	"github.com/keyurboss/Generic-Servers/go/lint-shortner/middleware"
 )
 
 func deferMainFunc() {
@@ -37,6 +38,11 @@ func main() {
 	// API STARTS HERE
 
 	app.Get("/:id", apis.GetShortUrlAfterRedirect)
+	app.Post("/get_token", apis.GenerateToken)
+	g := app.Group("/", middleware.TokenDecrypter, middleware.AllowOnlyValidTokenMiddleWare)
+	g.Post("/short_url", apis.SignleShortning)
+	g.Post("/bulk_shortning", apis.SignleShortning)
+
 	app.Use(func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).SendString("Sorry can't find that!")
 	})
