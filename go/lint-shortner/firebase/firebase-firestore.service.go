@@ -39,7 +39,7 @@ func (s *firebaseFirestoreService) GetShortUrl(doc string) (map[string]interface
 func (s *firebaseFirestoreService) GetPublicData(colletion string, doc string) (map[string]interface{}, error) {
 	da, err := s.db.Collection(colletion).Doc(doc).Get(FirebaseCtx)
 	if err != nil {
-		println(err)
+		println(err.Error())
 		return nil, err
 	}
 	return da.Data(), err
