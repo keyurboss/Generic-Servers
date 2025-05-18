@@ -1,0 +1,19 @@
+{
+  "sendAttachment": true,
+  "readAttachmentFromCSV": false,
+  "fixedAttachmentName": "demo.pdf@@demo_2.pdf",
+  "basePathForAttachment": "E:\\Generic-Servers\\go\\emails",
+  "addDelayBetweenMails": 3,
+  "readSubjectFromCsv": true,
+  "emailSubject": "DEMO MSG",
+  "readEmailTextFromCsv": true,
+  "isEmailBodyHTML": true,
+  "emailBody": "<img height=\"512\" weight=\"512\" src=\"@@image@@\">\n",
+  "inputFile": "input1.csv",
+  "host": "emphasis.herosite.pro",
+  "fromEmail": "keyur@xxxx.xxx",
+  "fromName": "Keyur shah",
+  "userName": "keyur@xxxx.xxx",
+  "port": 587,
+  "password": "xxxxxxxxxxxxx"
+}

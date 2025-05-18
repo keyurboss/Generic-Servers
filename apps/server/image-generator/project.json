@@ -1,0 +1,67 @@
+{
+  "name": "ImageGeneratorAndUpload",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/image-generator/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/server/image-generator",
+        "format": ["cjs"],
+        "bundle": true,
+        "main": "apps/server/image-generator/src/main.ts",
+        "tsConfig": "apps/server/image-generator/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "*",
+            "input": "apps/server/image-generator/src/assets",
+            "output": "assets"
+          }
+        ],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "ImageGeneratorAndUpload:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ImageGeneratorAndUpload:build:development"
+        },
+        "production": {
+          "buildTarget": "ImageGeneratorAndUpload:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

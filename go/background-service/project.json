@@ -1,0 +1,21 @@
+{
+  "name": "GoBackgroundService",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "go/background-service",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx-go/nx-go:test"
+    },
+    "build:windows": {
+      "executor": "@nx-go/nx-go:build",
+      "options": {
+        "main": "{projectRoot}/main.go"
+      }
+    },
+    "lint": {
+      "executor": "@nx-go/nx-go:lint"
+    }
+  }
+}

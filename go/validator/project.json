@@ -1,0 +1,15 @@
+{
+  "name": "GoValidator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "go/validator",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx-go/nx-go:test"
+    },
+    "lint": {
+      "executor": "@nx-go/nx-go:lint"
+    }
+  }
+}

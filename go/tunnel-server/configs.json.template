@@ -1,0 +1,14 @@
+{
+  "serverIp": "x.x.x.x",
+  "serverPort": 8080,
+  "remoteTunnelConfig": [
+    {
+      "localPort": 80,
+      "remotePort": 20100
+    },
+    {
+      "localPort": 3389,
+      "remotePort": 20101
+    }
+  ]
+}

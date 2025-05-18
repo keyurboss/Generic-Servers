@@ -27,6 +27,11 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "@nx/esbuild:esbuild": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -41,9 +46,10 @@
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.js"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": ["{workspaceRoot}/go.mod"]
   },
   "nxCloudAccessToken": "MGIxMThmZWYtNWI5ZC00MzUxLTk5MjItNDM0YzUzYzQwY2JjfHJlYWQ=",
   "useInferencePlugins": false,
-  "nxCloudId": "66fed57c9fb2c540816aaaa0"
+  "nxCloudId": "66fed57c9fb2c540816aaaa0",
+  "plugins": ["@nx-go/nx-go"]
 }

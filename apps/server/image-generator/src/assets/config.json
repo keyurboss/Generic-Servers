@@ -1,0 +1,6 @@
+{
+  "baseImageName": "demo.jpg",
+  "basePathDirForUpload": "emails/demotask1",
+  "emailSubjectTemplate": "@@name - You are invited to 200 Years of Karimjee",
+  "emailBodyTemplate": "<div style=display:block;margin:auto><a href=https://karimjee200rsvp.paperform.co style=display:block;margin-left:auto;margin-right:auto;width:514px><img height=1024 src=@@image style=\"aspect-ratio:auto 1177/2336\"width=514></a></div>"
+}
